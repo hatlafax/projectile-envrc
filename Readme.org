@@ -1,0 +1,111 @@
+* projectile-envrc.el
+
+Simple directory environment variable handling for projectile.
+
+* Motivation
+
+This small package allows you to setup the process environment on projectile
+command execution by reading the environment from a simple text based file.
+
+If a file 'projectile-envrc' is found in a projectile project root directory,
+it is evaluated on execution of the following projectile commands:
+
+- projectile-run-command-in-root
+- projectile-run-shell-command-in-root
+- projectile-run-async-shell-command-in-root
+- projectile-run-gdb
+- projectile-run-shell
+- projectile-run-eshell
+- projectile-run-ielm
+- projectile-run-term
+- projectile-run-vterm
+- projectile-configure-project
+- projectile-compile-project
+- projectile-install-project
+- projectile-package-project
+
+The file format for '.projectile-envrc' is quite simple:
+Only lines that begin with '+', '-', '*:' or ':*' are
+considered. Everything else is ignored.
+
+| Specifier | Description |
+|-----------------------------------------------------------|
+| =+=       | Add variable/value to the process environent. |
+| =-=       | Remove variable from the process environent.  |
+| =*:=      | Prepend to the process environment variable.  |
+| =:*=      | Append to the process environment variable.   |
+
+Example:
+
+#+begin_example
+    #
+    # Hi there this is ignored
+    #
+
+    +TIK = Hallo World
+    +TAK = "A small test"
+    *:PATH = c:/utils/testA
+    *:PATH = c:/utils/testB
+    :*PATH = c:/utils/testC
+    :*PATH = c:/utils/testD
+    +TOK   = c:/utils/testE
+    -OSG_LOG_FILE
+    +TOE   = c:/utils/testF
+#+end_example
+
+* Installation
+
+This package is not available on MELPA. Just copy file =projectile.el= into your load path.
+
+* Usage
+
+The author uses it with the following [[https://github.com/raxod502/straight.el][straight]] 
+based configuration command.
+
+#+begin_src lisp
+
+(use-package projectile-envrc
+    :straight nil
+    :after projectile
+    :config
+        (setq projectile-envrc-silenced nil
+              projectile-envrc-verbose  nil)
+)
+
+#+end_src
+
+* Dependencies
+
+The author only tested it with Emacs 27.1.
+ 
+- [[https://github.com/bbatsov/projectile][projectile]]
+- [[https://github.com/magnars/s.el][s]]
+- [[https://github.com/magnars/dash.el][dash]]
+
+* Usage
+
+** Cautionary Note
+
+This is an Emacs beginners package and it is not tested thoroughly. The author does not regard this
+package on par with typical Melpa packages.
+
+* Limitations / Known Issues
+
+None
+
+* License (GPL v3)
+
+Copyright (C) 2016 Free Software Foundation, Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
