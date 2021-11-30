@@ -98,36 +98,31 @@
   :group 'projectile
   :type 'boolean)
 
-(defcustom projectile-envrc-verbose t
-  "On default the modification of the process envronment is not printed to the message buffer."
-  :group 'projectile
-  :type 'boolean)
-
 (defun projectile-envrc-set-env-var (pair)
     "Sets an environment variable. Expects a pair of (VARNAME . VALUE)"
     (setenv (car pair) (cdr pair))
-    (when (and  (not projectile-envrc-silenced) projectile-envrc-verbose)
+    (when (not projectile-envrc-silenced)
         (message "      added: %s=%s" (car pair) (getenv (car pair))))
 )
 
 (defun projectile-envrc-unset-env-var (varname)
     "Unset an environment variable. Expects a VARNAME."
     (setenv varname nil)
-    (when (and  (not projectile-envrc-silenced) projectile-envrc-verbose)
+    (when (not projectile-envrc-silenced)
         (message "    removed: %s=%s" varname (getenv varname)))
 )
 
 (defun projectile-envrc-prepend-env-var (pair)
     "Prepend VALUE to an environment variable VARNAME. Expects a pair of (VARNAME . VALUE)"
     (setenv (car pair) (concat (cdr pair) path-separator (getenv (car pair))))
-    (when (and  (not projectile-envrc-silenced) projectile-envrc-verbose)
+    (when (not projectile-envrc-silenced)
         (message "  prepended: %s=%s" (car pair) (getenv (car pair))))
 )
 
 (defun projectile-envrc-append-env-var (pair)
     "Append VALUE to an environment variable VARNAME. Expects a pair of (VARNAME . VALUE)"
     (setenv (car pair) (concat (getenv (car pair)) path-separator (cdr pair)))
-    (when (and  (not projectile-envrc-silenced) projectile-envrc-verbose)
+    (when (not projectile-envrc-silenced)
         (message "   appended:  %s=%s" (car pair) (getenv (car pair))))
 )
 

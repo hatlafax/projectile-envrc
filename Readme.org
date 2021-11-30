@@ -7,7 +7,7 @@ Simple directory environment variable handling for projectile.
 This small package allows you to setup the process environment on projectile
 command execution by reading the environment from a simple text based file.
 
-If a file 'projectile-envrc' is found in a projectile project root directory,
+If a file '.projectile-envrc' is found in a projectile project root directory,
 it is evaluated on execution of the following projectile commands:
 
 - projectile-run-command-in-root
@@ -35,7 +35,7 @@ considered. Everything else is ignored.
 | =*:=      | Prepend to the process environment variable.  |
 | =:*=      | Append to the process environment variable.   |
 
-Example:
+Example '.projectile-envrc' file:
 
 #+begin_example
     #
@@ -68,8 +68,7 @@ based configuration command.
     :straight nil
     :after projectile
     :config
-        (setq projectile-envrc-silenced nil
-              projectile-envrc-verbose  nil)
+        (setq projectile-envrc-silenced nil)
 )
 
 #+end_src
